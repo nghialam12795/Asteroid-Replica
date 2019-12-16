@@ -37,3 +37,6 @@
 
 # Ignore debug file
 /build/debug
+
+# Ignore build file (Debug stage)
+/out
