@@ -32,8 +32,9 @@
 *.app
 
 
-# IDEA CLion ignore
+# IDEA CLion & VSC ignore
 /.idea
+/.vscode
 
 # Ignore debug file
 /build/debug

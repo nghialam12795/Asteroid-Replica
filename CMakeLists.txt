@@ -18,8 +18,8 @@ INCLUDE(GNUInstallDirs)
 if (NOT ASTEROID_SETTINGS)
     set(ASTEROID_PATH ${CMAKE_CURRENT_SOURCE_DIR})
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${ASTEROID_PATH}/build/cmake/")
-    include(AsteroidSetting)
+    include(asteroid_settings)
 endif()
 
 # Define the executable
-add_executable(ASTEROID ${PROJECT_SOURCE_DIR}/src/Main.cpp)
+add_executable(ASTEROID ${PROJECT_SOURCE_DIR}/src/Main.cpp src/game.cpp src/game.h)
