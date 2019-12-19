@@ -34,8 +34,7 @@ add_executable(ASTEROID ${PROJECT_SOURCE_DIR}/src/Main.cpp) # Main file
 
 ############## External ##############
 link_directories(${CMAKE_MODULE_PATH})
-set(SDL2DIR "${PROJECT_SOURCE_DIR}/include/SDL2/")
-# TODO(nghialam): Fix Cannot find SDL2_LIBRARY on Window
+# TODO(nghialam): Fix Cannot find SDL2_LIBRARY on Window (currently 32bit)
 # SDL2
 find_package(SDL2 REQUIRED)
 
@@ -46,4 +45,4 @@ else()
 endif()
 
 ############## Internal ##############
-target_link_libraries(ASTEROID GAME_SRC)
+target_link_libraries(ASTEROID GAME_SRC ${SDL2_LIBRARY})
