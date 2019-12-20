@@ -36,8 +36,9 @@
 /.idea
 /.vscode
 
-# Ignore debug file
+# Ignore cmake build file
 /build/debug
+/build/release
 
 # Ignore build file (Debug stage)
 /out

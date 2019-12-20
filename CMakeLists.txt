@@ -20,6 +20,7 @@ if (NOT ASTEROID_SETTINGS)
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
             "${ASTEROID_PATH}/build/cmake/"
             "${ASTEROID_PATH}/build/cmake/extern_lib"
+            "${ASTEROID_PATH}/include/SDL2"
             )
     include(asteroid_settings)
 endif()
@@ -34,15 +35,14 @@ add_executable(ASTEROID ${PROJECT_SOURCE_DIR}/src/Main.cpp) # Main file
 
 ############## External ##############
 link_directories(${CMAKE_MODULE_PATH})
-# TODO(nghialam): Fix Cannot find SDL2_LIBRARY on Window (currently 32bit)
 # SDL2
-find_package(SDL2 REQUIRED)
-
-if (NOT SDL2_FOUND)
-    MESSAGE(FATAL_ERROR "SDL2 is required to build this game !!")
+if (WIN32)
+    include(sdl2_config) # For fixing weird bug of not found the SDL2 library
 else()
-    include_directories(${SDL2_INCLUDE_DIRS})
+    find_package(SDL2 REQUIRED)
 endif()
+
+include_directories(${SDL2_INCLUDE_DIRS})
 
 ############## Internal ##############
 target_link_libraries(ASTEROID GAME_SRC ${SDL2_LIBRARY})
