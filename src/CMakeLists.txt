@@ -1,12 +1,12 @@
 set(SOURCES
         "assets.cpp"
-        "constant.cpp"
         "entity.cpp"
         "game.cpp"
         )
 
 set(HEADERS
         "assets.h"
+        "constant.h"
         "entity.h"
         "game.h"
         )

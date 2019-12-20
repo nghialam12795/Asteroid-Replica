@@ -2,7 +2,7 @@
 #include <SDL.h> // TODO(nghialam): find a way to include in all platform
 using namespace std;
 
-#include "constant.cpp"
+#include "constant.h"
 
 // The window we will be rendering to
 SDL_Window *window = nullptr;
@@ -22,8 +22,8 @@ bool init() {
     window = SDL_CreateWindow("SDL !!!",
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
-                              Constant::kWidth,
-                              Constant::kHeight,
+                              kScreenWidth,
+                              kScreenHeight,
                               SDL_WINDOW_SHOWN);
     SDL_SetWindowTitle(window, "Pixel Plot");
     if (window == nullptr) {
