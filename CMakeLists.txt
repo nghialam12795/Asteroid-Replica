@@ -28,22 +28,26 @@ endif()
 
 # Define the executable
 add_subdirectory(src)
-add_executable(ASTEROID ${PROJECT_SOURCE_DIR}/src/Main.cpp) # Main file
+file(GLOB_RECURSE ASTEROID_SOURCE "${PROJECT_SOURCE_DIR}/src/*.cpp") # Include all sources
+add_executable(ASTEROID ${ASTEROID_SOURCE})
 
 # --------------------------------------------------
 # For library using in this project
 # --------------------------------------------------
 
 link_directories(${CMAKE_MODULE_PATH})
+##################### External ######################
 # SDL2
 if (WIN32)
     include(sdl2_config) # For fixing weird bug of not found the SDL2 library on Window
     include(sdl2_image_config)
 else()
     find_package(SDL2 REQUIRED)
+    find_package(SDL2_image REQUIRED)
 endif()
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR})
+target_link_libraries(ASTEROID ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
 
-# link library
-target_link_libraries(ASTEROID GAME_SRC ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
+##################### Internal ######################
+target_link_libraries(ASTEROID ${GAME_ENTITIES})
