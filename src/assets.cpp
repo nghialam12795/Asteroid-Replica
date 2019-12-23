@@ -2,7 +2,7 @@
 
 // ********************* STATIC VARIABLES ********************** //
 bool Assets::is_init_ = false;
-const std::string Assets::res_path_ = "./res/";
+const std::string Assets::res_path_ = "../res/"; // TODO(nghialam): Find a way to embed resource
 const std::string Assets::logo_name_ = "logo.png";
 const std::string Assets::bg_name_ = "background.png";
 SDL_Surface* Assets::logo_ = nullptr;
@@ -20,7 +20,7 @@ Assets::Assets() {
 
     // Init background
     std::string file_path = res_path_ + bg_name_;
-    background_ = new Texture(file_path.c_str());
+    background_ = new Texture(file_path);
   }
 
   is_init_ = true;

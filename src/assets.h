@@ -17,8 +17,8 @@ class Assets {
  public:
   Assets();
   ~Assets();
-  SDL_Surface* get_logo();
-  Texture* get_bg();
+  static SDL_Surface* get_logo();
+  static Texture* get_bg();
 };
 
 #endif  // ASTEROID_ASSETS_H_

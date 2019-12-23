@@ -11,7 +11,7 @@ class Texture {
 
  public:
   Texture();
-  Texture(std::string file_path);
+  explicit Texture(const std::string& file_path);
   ~Texture();
 
   void render(int x, int y,

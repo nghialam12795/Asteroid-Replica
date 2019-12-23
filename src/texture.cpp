@@ -10,7 +10,7 @@ Texture::Texture() {
   height_ = 0;
 }
 
-Texture::Texture(std::string file_path) {
+Texture::Texture(const std::string& file_path) {
   SDL_Surface* texture_surface = IMG_Load(file_path.c_str());
   texture_ = SDL_CreateTextureFromSurface(Game::ME->get_renderer(), texture_surface);
   width_ = texture_surface->w * kAutoScale;
