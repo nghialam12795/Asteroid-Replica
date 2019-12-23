@@ -2,7 +2,13 @@
 
 // ********************* STATIC VARIABLES ********************** //
 bool Assets::is_init_ = false;
-const std::string Assets::res_path_ = "../res/"; // TODO(nghialam): Find a way to embed resource
+
+#ifdef _WIN32
+const std::string Assets::res_path_ = "res/"; // TODO(nghialam): Find a way to embed resource
+#else
+const std::string Assets::res_path_ = "../res/";
+#endif
+
 const std::string Assets::logo_name_ = "logo.png";
 const std::string Assets::bg_name_ = "background.png";
 SDL_Surface* Assets::logo_ = nullptr;
