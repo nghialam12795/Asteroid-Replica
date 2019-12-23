@@ -22,6 +22,7 @@ if (NOT ASTEROID_SETTINGS)
             "${ASTEROID_PATH}/build/cmake/extern_lib"
             "${ASTEROID_PATH}/include/SDL2"
             "${ASTEROID_PATH}/include/SDL2_image"
+            "${ASTEROID_PATH}/include/SDL2_ttf"
             )
     include(asteroid_settings)
 endif()
@@ -41,13 +42,15 @@ link_directories(${CMAKE_MODULE_PATH})
 if (WIN32)
     include(sdl2_config) # For fixing weird bug of not found the SDL2 library on Window
     include(sdl2_image_config)
+    include(sdl2_ttf_config)
 else()
     find_package(SDL2 REQUIRED)
     find_package(SDL2_image REQUIRED)
+    find_package(SDL2_ttf REQUIRED)
 endif()
 
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR})
-target_link_libraries(ASTEROID ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
+target_link_libraries(ASTEROID ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
 
 ##################### Internal ######################
-target_link_libraries(ASTEROID ${GAME_ENTITIES})
+target_link_libraries(ASTEROID ${GAME_ENTITIES} ${GAME_UI})
