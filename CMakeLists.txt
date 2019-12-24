@@ -28,7 +28,8 @@ if (NOT ASTEROID_SETTINGS)
 endif()
 
 # Define the executable
-add_subdirectory(src)
+add_subdirectory(src/ent)
+add_subdirectory(src/ui)
 file(GLOB_RECURSE ASTEROID_SOURCE "${PROJECT_SOURCE_DIR}/src/*.cpp") # Include all sources
 add_executable(ASTEROID ${ASTEROID_SOURCE})
 

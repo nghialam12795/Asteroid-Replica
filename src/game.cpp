@@ -30,12 +30,18 @@ Game::Game() {
   game_assets_ = new Assets();
 
   // Set window icon
-  SDL_SetWindowIcon(window_, game_assets_->get_logo());
-  SDL_FreeSurface(game_assets_->get_logo());
+  SDL_SetWindowIcon(window_, Assets::get_logo());
+  SDL_FreeSurface(Assets::get_logo());
+
+  // Init time counter
+  timer_.start();
+  fps_counter_ = new Text("Game Start", 1, {255, 255, 255, 255});
+  fps_counter_->render(kScreenWidth/2, 0);
 }
 
 Game::~Game() {
   delete main_event_;
+  delete game_assets_;
   SDL_DestroyRenderer(renderer_);
   SDL_DestroyWindow(window_);
 
@@ -48,22 +54,31 @@ Game::~Game() {
 // ************************ METHOD ***************************** //
 void Game::loop() {
   int scroll_offset = 0;
+  int frames = 0;
   while (!Game::quit_game && main_event_->type != SDL_QUIT) {
-    render(scroll_offset);
+    render(scroll_offset, frames);
     update();
   }
 }
 
-void Game::render(int &scroll_offset) {
+void Game::render(int &scroll_offset, int &frames) {
   --scroll_offset;
-  if (scroll_offset < -game_assets_->get_bg()->get_w()) { scroll_offset = 0; }
+  if (scroll_offset < -Assets::get_bg()->get_w()) { scroll_offset = 0; }
 
-  // SDL_SetRenderDrawColor(renderer_, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(renderer_);
   // Render background
-  game_assets_->get_bg()->render(scroll_offset, 0);
-  game_assets_->get_bg()->render(scroll_offset + game_assets_->get_bg()->get_w(), 0);
+  Assets::get_bg()->render(scroll_offset, 0);
+  Assets::get_bg()->render(scroll_offset + Assets::get_bg()->get_w(), 0);
+  // Render text
+  float avg_fps = frames / (timer_.get_time() / 1000.f);
+  if (avg_fps > 2000000) { avg_fps = 0; }
+
+  time_text.str( "" );
+  time_text << "FPS: " << avg_fps;
+  fps_counter_->render((kScreenWidth - fps_counter_->get_w())/2, 0, time_text.str());
+
   SDL_RenderPresent(renderer_);
+  ++frames;
 }
 
 void Game::update() {

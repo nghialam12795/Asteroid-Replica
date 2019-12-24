@@ -35,6 +35,8 @@
 # IDEA CLion & VSC ignore
 /.idea
 /.vscode
+/.vs
+CMakeSettings.json
 
 # Ignore cmake build file
 /build/debug
