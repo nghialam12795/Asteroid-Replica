@@ -37,12 +37,7 @@ void Text::render(int x, int y, const std::string& text) {
   }
 
   SDL_Rect render_space = {x, y, font_w_*font_size_, font_h_*font_size_};
-  SDL_RenderCopyEx( Game::ME->get_renderer(), 
-                    content_, nullptr, 
-                    &render_space, 
-                    0.0, 
-                    nullptr, 
-                    SDL_FLIP_NONE);
+  SDL_RenderCopy( Game::ME->get_renderer(),content_, nullptr, &render_space);
 }
 
 void Text::set_content(const std::string& text) {

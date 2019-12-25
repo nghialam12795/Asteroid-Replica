@@ -15,6 +15,7 @@ Assets::Assets() {
   if (!is_init_) {
     int img_flg = IMG_INIT_PNG;
     IMG_Init(img_flg);
+    anim_db_ = nullptr;
 
     // Init logo
     std::string logo_path = res_path_ + logo_name_;
@@ -28,6 +29,14 @@ Assets::Assets() {
     TTF_Init();
     std::string font_path = res_path_ + font_name_;
     font_ = TTF_OpenFont(font_path.c_str(), 16);
+
+    // -------------------------------------------------------
+    // ANIMATION
+    // -------------------------------------------------------
+    std::vector<std::string> anim_paths;
+    anim_paths.reserve(24);
+    for (int i = 0; i < 24; ++i) { anim_paths.push_back(res_path_ + "ent/player/player_idle_" + std::to_string(i + 1) + ".png"); }
+    (*anim_db_)["player_idle"] = anim_paths;
   }
 
   is_init_ = true;
@@ -44,3 +53,7 @@ Assets::~Assets() {
 SDL_Surface* Assets::get_logo() { return logo_; }
 Texture* Assets::get_bg() { return background_; }
 TTF_Font* Assets::get_font() { return font_; }
+
+std::vector<std::string> Assets::get_anim(const std::string& anim_name) {
+  return anim_db_->find(anim_name)->second;
+}

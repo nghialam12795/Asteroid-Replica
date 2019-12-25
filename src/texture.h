@@ -14,11 +14,7 @@ class Texture {
   explicit Texture(const std::string& file_path);
   ~Texture();
 
-  void render(int x, int y,
-              SDL_Rect* clip = nullptr,
-              double angle = 0.0, 
-              SDL_Point* center = nullptr, 
-              SDL_RendererFlip flip = SDL_FLIP_NONE);
+  void render(int x, int y, SDL_Rect* clip = nullptr);
 
   int get_w();
   int get_h();

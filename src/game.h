@@ -7,6 +7,7 @@
 #include "assets.h"
 #include "timer.h"
 #include "ui/text.h"
+#include "ent/player.h"
 
 class Game {
  private:
@@ -25,9 +26,10 @@ class Game {
 
   static Game* ME;
   static bool quit_game;
+  static Player* player_;
 
   void loop();
-  void render(int &scroll_offset, int& frames);
+  void render(int &scroll_offset, int& frames, Timer &cap_timer);
   void update();
 
   SDL_Renderer* get_renderer();

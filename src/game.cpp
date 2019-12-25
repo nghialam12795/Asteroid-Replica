@@ -37,6 +37,10 @@ Game::Game() {
   timer_.start();
   fps_counter_ = new Text("Game Start", 1, {255, 255, 255, 255});
   fps_counter_->render(kScreenWidth/2, 0);
+
+  // Init Entities
+  player_ = new Player(0, 0);
+  player_->spr->set_sprite(Assets::get_anim("player_idle"));
 }
 
 Game::~Game() {
@@ -53,15 +57,17 @@ Game::~Game() {
 
 // ************************ METHOD ***************************** //
 void Game::loop() {
+  Timer cap_timer; // For capping FPS
   int scroll_offset = 0;
   int frames = 0;
   while (!Game::quit_game && main_event_->type != SDL_QUIT) {
-    render(scroll_offset, frames);
+    cap_timer.start();
+    render(scroll_offset, frames, cap_timer);
     update();
   }
 }
 
-void Game::render(int &scroll_offset, int &frames) {
+void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
   --scroll_offset;
   if (scroll_offset < -Assets::get_bg()->get_w()) { scroll_offset = 0; }
 
@@ -75,10 +81,14 @@ void Game::render(int &scroll_offset, int &frames) {
 
   time_text.str( "" );
   time_text << "FPS: " << avg_fps;
-  fps_counter_->render((kScreenWidth - fps_counter_->get_w())/2, 0, time_text.str());
+  fps_counter_->render(kScreenWidth - fps_counter_->get_w(), 0, time_text.str());
 
   SDL_RenderPresent(renderer_);
   ++frames;
+
+  // Delay for render at wanted FPS
+  int screen_per_frame = 1000 / kGameFPS; // ms/maximum frame rate
+  if (cap_timer.get_time() < screen_per_frame) { SDL_Delay(screen_per_frame - cap_timer.get_time()); }
 }
 
 void Game::update() {

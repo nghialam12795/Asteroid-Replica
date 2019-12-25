@@ -29,18 +29,14 @@ Texture::~Texture() {
 }
 
 // ************************ METHOD ***************************** //
-void Texture::render( int x, int y, 
-                      SDL_Rect* clip, 
-                      double angle, 
-                      SDL_Point* center, 
-                      SDL_RendererFlip flip ) {
-
+void Texture::render(int x, int y, SDL_Rect* clip) {
   SDL_Rect render_space = {x, y, width_, height_};
   if (clip != nullptr) {
     render_space.w = clip->w;
     render_space.h = clip->h;
   }
-  SDL_RenderCopyEx(Game::ME->get_renderer(), texture_, clip, &render_space, angle, center, flip);
+
+  SDL_RenderCopy(Game::ME->get_renderer(), texture_, clip, &render_space);
 }
 
 int Texture::get_w() { return width_; }
