@@ -18,6 +18,6 @@ if (WIN32)
     include(sdl2_image_config)
     include(sdl2_ttf_config)
 
-    include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
-    target_link_libraries(GAME_ENTITIES SDL2_LIBRARY SDL2_IMAGE_LIBRARY SDL2_TTF_LIBRARY)
+    include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR})
+    target_link_libraries(GAME_ENTITIES SDL2_LIBRARY SDL2_IMAGE_LIBRARY SDL2TTF_LIBRARY)
 endif()
