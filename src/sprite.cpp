@@ -1,7 +1,14 @@
 #include "sprite.h"
 
+#include <iostream>
+
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
-Sprite::Sprite() = default;;
+Sprite::Sprite() {
+  x_ = 0;
+  y_ = 0;
+  scale_x_ = 1;
+  scale_y_ = 1;
+}
 
 Sprite::Sprite(const std::vector<std::string> &sprites_path) {
   x_ = 0;
@@ -24,6 +31,7 @@ void Sprite::play() {
   for (auto i : sprites_) {
     SDL_Rect scale_ref = {0, 0, i->get_w()*scale_x_, i->get_h()*scale_y_};
     i->render(x_, y_, &scale_ref);
+    // TODO(nghialam) : fix unknown bug of render all frame
   }
 }
 

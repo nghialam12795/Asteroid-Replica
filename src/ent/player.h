@@ -11,7 +11,7 @@ class Player : public Entity {
   virtual ~Player();
 
   void pre_update() override;
-//  void update() override;
+  void update() override;
   void post_update() override;
 };
 

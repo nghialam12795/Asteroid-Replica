@@ -20,12 +20,7 @@ Texture::Texture(const std::string& file_path) {
 }
 
 Texture::~Texture() {
-  if (texture_ != nullptr) {
-    SDL_DestroyTexture(texture_);
-    texture_ = nullptr;
-    width_ = 0;
-    height_ = 0;
-  }
+  free();
 }
 
 // ************************ METHOD ***************************** //
@@ -39,5 +34,15 @@ void Texture::render(int x, int y, SDL_Rect* clip) {
   SDL_RenderCopy(Game::ME->get_renderer(), texture_, clip, &render_space);
 }
 
+void Texture::free() {
+  if (texture_ != nullptr) {
+    SDL_DestroyTexture(texture_);
+    texture_ = nullptr;
+    width_ = 0;
+    height_ = 0;
+  }
+}
+
 int Texture::get_w() { return width_; }
 int Texture::get_h() { return height_; }
+

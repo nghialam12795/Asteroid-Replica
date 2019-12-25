@@ -15,6 +15,7 @@ class Texture {
   ~Texture();
 
   void render(int x, int y, SDL_Rect* clip = nullptr);
+  void free();
 
   int get_w();
   int get_h();

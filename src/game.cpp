@@ -5,6 +5,7 @@
 // ********************* STATIC VARIABLES ********************** //
 Game* Game::ME = nullptr;
 bool Game::quit_game = false;
+Player* Game::player_ = new Player(0, 0);
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Game::Game() {
@@ -39,8 +40,7 @@ Game::Game() {
   fps_counter_->render(kScreenWidth/2, 0);
 
   // Init Entities
-  player_ = new Player(0, 0);
-  player_->spr->set_sprite(Assets::get_anim("player_idle"));
+  player_->spr->set_sprite(*Assets::get_anim("player_idle"));
 }
 
 Game::~Game() {
@@ -62,8 +62,10 @@ void Game::loop() {
   int frames = 0;
   while (!Game::quit_game && main_event_->type != SDL_QUIT) {
     cap_timer.start();
+    SDL_RenderClear(renderer_);
     render(scroll_offset, frames, cap_timer);
     update();
+    SDL_RenderPresent(renderer_);
   }
 }
 
@@ -71,7 +73,6 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
   --scroll_offset;
   if (scroll_offset < -Assets::get_bg()->get_w()) { scroll_offset = 0; }
 
-  SDL_RenderClear(renderer_);
   // Render background
   Assets::get_bg()->render(scroll_offset, 0);
   Assets::get_bg()->render(scroll_offset + Assets::get_bg()->get_w(), 0);
@@ -83,7 +84,6 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
   time_text << "FPS: " << avg_fps;
   fps_counter_->render(kScreenWidth - fps_counter_->get_w(), 0, time_text.str());
 
-  SDL_RenderPresent(renderer_);
   ++frames;
 
   // Delay for render at wanted FPS
@@ -92,6 +92,7 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
 }
 
 void Game::update() {
+  player_->spr->play();
   SDL_PollEvent(main_event_);
 }
 

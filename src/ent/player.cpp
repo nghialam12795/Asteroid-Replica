@@ -10,9 +10,9 @@ void Player::pre_update() {
   Entity::pre_update();
 }
 
-//void Player::update() {
-//  Entity::update();
-//}
+void Player::update() {
+ Entity::update();
+}
 
 void Player::post_update() {
   Entity::post_update();

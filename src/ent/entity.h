@@ -5,8 +5,6 @@
 
 class Entity {
  private:
-  static bool first_init_;
-
   int cx_;
   int cy_;
   float xr_;
@@ -18,9 +16,6 @@ class Entity {
   Entity(int x, int y);
   ~Entity();
 
-  static std::vector<Entity>* ALL;
-  static std::vector<Entity>* GC; // Garbage Collection
-
   Sprite* spr = nullptr;
   uint8_t dir;
 
@@ -29,7 +24,7 @@ class Entity {
   void set_pos_utils(int x, int y);
 
   virtual void pre_update(); // for Action
-//  virtual void update(); // for Calculating, Logic, etc..
+  virtual void update(); // for Calculating, Logic, etc..
   virtual void post_update(); // for update position
 };
 

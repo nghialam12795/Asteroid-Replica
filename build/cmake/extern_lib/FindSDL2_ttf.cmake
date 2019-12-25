@@ -74,6 +74,7 @@ SET(SDL2TTF_SEARCH_PATHS
 	/opt/local # DarwinPorts
 	/opt/csw # Blastwave
 	/opt
+	/usr/local/Cellar
 )
 
 FIND_PATH(SDL2TTF_INCLUDE_DIR SDL_ttf.h
