@@ -5,7 +5,7 @@
 
 class Player : public Entity {
  private:
-  const float flight_spd_ = 0.015;
+  const float flight_spd_ = 0.1;
    
  public:
   Player(int x, int y);

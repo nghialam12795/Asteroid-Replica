@@ -6,7 +6,7 @@
 Game* Game::ME = nullptr;
 bool Game::quit_game = false;
 Player* Game::player = new Player(0, 0);
-Controller* Game::controller = new Controller();
+Controller* Game::controller = new Controller;
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Game::Game() {
@@ -41,7 +41,7 @@ Game::Game() {
   fps_counter_->render(kScreenWidth/2, 0);
 
   // Init Entities
-  player->spr->set_sprite(*Assets::get_anim("playeridle"));
+  player->spr->set_sprite(*Assets::get_anim("player_idle"));
 }
 
 Game::~Game() {

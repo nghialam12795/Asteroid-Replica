@@ -26,8 +26,8 @@ Assets::Assets() {
     // Init background
     string bg_path = res_path_ + bg_name_;
     background_ = new Texture(bg_path);
-    background_->set_h(background_->get_h()*8);
-    background_->set_w(background_->get_w()*8);
+    background_->set_h(background_->get_h()*4);
+    background_->set_w(background_->get_w()*4);
 
     // Init font
     TTF_Init();
@@ -37,7 +37,7 @@ Assets::Assets() {
     // -------------------------------------------------------
     // ANIMATION
     // -------------------------------------------------------
-    vector<string>* anim_paths = new vector<string>;
+    auto* anim_paths = new vector<string>;
     for (int i = 0; i < 24; ++i) {
       anim_paths->push_back(res_path_ + "ent/player/player_idle_" + to_string(i + 1) + ".png");
     }

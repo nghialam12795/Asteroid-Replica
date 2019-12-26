@@ -57,10 +57,7 @@ void Entity::update() {
   dy *= kFrict;
 }
 
-void Entity::post_update() {
-  spr->set_pos((cx_+xr_)*kGrid, (cy_+yr_)*kGrid);
-  spr->set_scale(dir * spr->get_scale_x(), 1); // Direction
-}
+void Entity::post_update() {}
 
 bool Entity::is_destroyed() { return destroyed_; }
 

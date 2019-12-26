@@ -64,8 +64,12 @@ void Sprite::set_scale(int x, int y) {
 }
 
 int Sprite::get_scale_x() { return scale_x_; }
+int Sprite::get_scale_y() { return scale_y_; }
+int Sprite::get_w() { return sprites_[f_cur]->get_w(); }
+int Sprite::get_h() { return sprites_[f_cur]->get_h(); }
 
 void Sprite::update() {
   if (f_cur == f_end) { f_cur = 0; }
   else { ++f_cur; }
 }
+

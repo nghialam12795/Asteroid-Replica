@@ -6,7 +6,7 @@
 class Controller
 {
  private:
-  const static uint8_t* state_;
+  static const uint8_t* state_;
 
  public : Controller();
   ~Controller();

@@ -9,10 +9,10 @@
 class Assets {
  private:
   static bool is_init_;
-  const static std::string res_path_;
-  const static std::string logo_name_;
-  const static std::string bg_name_;
-  const static std::string font_name_;
+  static const std::string res_path_;
+  static const std::string logo_name_;
+  static const std::string bg_name_;
+  static const std::string font_name_;
 
   static std::map< std::string, std::vector<std::string>* >* anim_db_;
 
