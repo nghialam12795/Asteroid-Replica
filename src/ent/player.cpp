@@ -1,7 +1,9 @@
 #include "player.h"
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
-Player::Player(int x, int y) : Entity(x, y) {}
+Player::Player(int x, int y) : Entity(x, y) {
+  this->spr->set_scale(4, 4);
+}
 
 Player::~Player() = default;
 
@@ -12,6 +14,8 @@ void Player::pre_update() {
 
 void Player::update() {
  Entity::update();
+ this->spr->update();
+ this->xr_ += 0.1;
 }
 
 void Player::post_update() {

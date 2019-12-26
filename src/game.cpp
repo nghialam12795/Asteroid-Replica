@@ -92,7 +92,12 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
 }
 
 void Game::update() {
+
+  // Player update
+  player_->pre_update();
   player_->spr->play();
+  player_->update();
+  player_->post_update();
   SDL_PollEvent(main_event_);
 }
 

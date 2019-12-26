@@ -45,7 +45,7 @@ void Entity::update() {
 
 void Entity::post_update() {
   spr->set_pos((cx_+xr_)*kGrid, (cy_+yr_)*kGrid);
-  spr->set_scale(dir, 1);
+  // spr->set_scale(dir, 1);
 }
 
 bool Entity::is_destroyed() { return destroyed_; }

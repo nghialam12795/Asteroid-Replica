@@ -26,6 +26,8 @@ Assets::Assets() {
     // Init background
     string bg_path = res_path_ + bg_name_;
     background_ = new Texture(bg_path);
+    background_->set_h(background_->get_h()*8);
+    background_->set_w(background_->get_w()*8);
 
     // Init font
     TTF_Init();

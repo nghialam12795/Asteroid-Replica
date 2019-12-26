@@ -5,12 +5,13 @@
 
 class Entity {
  private:
+  bool destroyed_;
+ 
+ protected:
   int cx_;
   int cy_;
   float xr_;
   float yr_;
-
-  bool destroyed_;
 
  public:
   Entity(int x, int y);

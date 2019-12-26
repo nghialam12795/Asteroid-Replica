@@ -1,6 +1,5 @@
 #include "texture.h"
 #include "game.h"
-#include "constant.h"
 
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
@@ -13,8 +12,8 @@ Texture::Texture() {
 Texture::Texture(const std::string& file_path) {
   SDL_Surface* texture_surface = IMG_Load(file_path.c_str());
   texture_ = SDL_CreateTextureFromSurface(Game::ME->get_renderer(), texture_surface);
-  width_ = texture_surface->w * kAutoScale;
-  height_ = texture_surface->h * kAutoScale;
+  width_ = texture_surface->w;
+  height_ = texture_surface->h;
 
   SDL_FreeSurface(texture_surface);
 }
@@ -43,6 +42,8 @@ void Texture::free() {
   }
 }
 
+void Texture::set_w(int w) { width_ = w; }
+void Texture::set_h(int h) { height_ = h; }
 int Texture::get_w() { return width_; }
 int Texture::get_h() { return height_; }
 
