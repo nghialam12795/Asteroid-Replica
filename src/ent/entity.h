@@ -20,6 +20,10 @@ class Entity {
   Sprite* spr = nullptr;
   uint8_t dir;
 
+  // Movement distances
+  float dx;
+  float dy;
+
   bool is_destroyed();
   void destroy();
   void set_pos_utils(int x, int y);

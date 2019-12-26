@@ -26,6 +26,8 @@ class Sprite {
   void set_pos(int x, int y);
   void set_scale(int x, int y);
 
+  int get_scale_x();
+
   void update();
 };
 

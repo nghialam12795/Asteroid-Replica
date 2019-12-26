@@ -63,6 +63,8 @@ void Sprite::set_scale(int x, int y) {
   this->scale_y_ = y;
 }
 
+int Sprite::get_scale_x() { return scale_x_; }
+
 void Sprite::update() {
   if (f_cur == f_end) { f_cur = 0; }
   else { ++f_cur; }

@@ -5,7 +5,8 @@
 
 class Player : public Entity {
  private:
-
+  const float flight_spd_ = 0.015;
+   
  public:
   Player(int x, int y);
   virtual ~Player();

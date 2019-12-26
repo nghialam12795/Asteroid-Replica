@@ -5,7 +5,8 @@
 // ********************* STATIC VARIABLES ********************** //
 Game* Game::ME = nullptr;
 bool Game::quit_game = false;
-Player* Game::player_ = new Player(0, 0);
+Player* Game::player = new Player(0, 0);
+Controller* Game::controller = new Controller();
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Game::Game() {
@@ -40,7 +41,7 @@ Game::Game() {
   fps_counter_->render(kScreenWidth/2, 0);
 
   // Init Entities
-  player_->spr->set_sprite(*Assets::get_anim("player_idle"));
+  player->spr->set_sprite(*Assets::get_anim("playeridle"));
 }
 
 Game::~Game() {
@@ -92,13 +93,14 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
 }
 
 void Game::update() {
+  SDL_PollEvent(main_event_);
+  controller->get_input();
 
   // Player update
-  player_->pre_update();
-  player_->spr->play();
-  player_->update();
-  player_->post_update();
-  SDL_PollEvent(main_event_);
+  player->pre_update();
+  player->update();
+  player->post_update();
+  
 }
 
 SDL_Renderer* Game::get_renderer() { return renderer_; }
