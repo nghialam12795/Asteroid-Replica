@@ -37,14 +37,25 @@ Assets::Assets() {
     // -------------------------------------------------------
     // ANIMATION
     // -------------------------------------------------------
-    auto* a_player_paths = new vector<string>;
-    auto* a_bullet_paths = new vector<string>;
+    auto* ap_player_ = new vector<string>;
+    auto* ap_bullet_ = new vector<string>;
+    auto* ap_fighter_ = new vector<string>;
+    auto* ap_obstacle_ = new vector<string>;
+    auto* ap_bomb_ = new vector<string>;
     for (int i = 0; i < 24; ++i) {
-      a_player_paths->push_back(res_path_ + "ent/player/player_idle_" + to_string(i + 1) + ".png");
-      a_bullet_paths->push_back(res_path_ + "ent/bullet/bfire_" + to_string(i + 1) + ".png");
+      ap_player_->push_back(res_path_ + "ent/player/player_idle_" + to_string(i + 1) + ".png");
+      ap_bullet_->push_back(res_path_ + "ent/bullet/bfire_" + to_string(i + 1) + ".png");
+      ap_fighter_->push_back(res_path_ + "ent/fighter/fighter_" + to_string(i + 1) + ".png");
+      ap_obstacle_->push_back(res_path_ + "ent/obstacle/obstacles_" + to_string(i + 1) + ".png");
     }
-    anim_db_->insert({"player_idle", a_player_paths});
-    anim_db_->insert({"bullet_fire", a_bullet_paths});
+    ap_bomb_->push_back(res_path_ + "ent/bullet/bomb_1.png");
+    ap_bomb_->push_back(res_path_ + "ent/bullet/bomb_2.png");
+    // Add to database
+    anim_db_->insert({"player_idle", ap_player_});
+    anim_db_->insert({"bullet_fire", ap_bullet_});
+    anim_db_->insert({"fighter_idle", ap_fighter_});
+    anim_db_->insert({"obstacle_idle", ap_obstacle_});
+    anim_db_->insert({"bomb_coming", ap_bomb_});
   }
 
   is_init_ = true;
