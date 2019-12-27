@@ -37,11 +37,14 @@ Assets::Assets() {
     // -------------------------------------------------------
     // ANIMATION
     // -------------------------------------------------------
-    auto* anim_paths = new vector<string>;
+    auto* a_player_paths = new vector<string>;
+    auto* a_bullet_paths = new vector<string>;
     for (int i = 0; i < 24; ++i) {
-      anim_paths->push_back(res_path_ + "ent/player/player_idle_" + to_string(i + 1) + ".png");
+      a_player_paths->push_back(res_path_ + "ent/player/player_idle_" + to_string(i + 1) + ".png");
+      a_bullet_paths->push_back(res_path_ + "ent/bullet/bfire_" + to_string(i + 1) + ".png");
     }
-    anim_db_->insert({"player_idle", anim_paths});
+    anim_db_->insert({"player_idle", a_player_paths});
+    anim_db_->insert({"bullet_fire", a_bullet_paths});
   }
 
   is_init_ = true;

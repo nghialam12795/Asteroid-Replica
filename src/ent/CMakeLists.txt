@@ -1,16 +1,16 @@
 set(SOURCES
-      "entity.cpp"
-      "player.cpp"
-      )
+        "entity.cpp"
+        "player.cpp"
+        "bullet.cpp")
 
 set(HEADERS
-      "entity.h"
-      "player.h"
-      )
+        "entity.h"
+        "player.h"
+        "bullet.h")
 
 add_library(GAME_ENTITIES STATIC ${SOURCES} ${HEADERS})
 
-# Need more setting for VSC to regconize this from parent CMAKE
+# Need more setting for VSC to recognize this from parent CMAKE
 link_directories(${CMAKE_MODULE_PATH})
 
 if (WIN32)

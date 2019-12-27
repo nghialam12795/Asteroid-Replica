@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "constant.h"
+#include "ent/bullet.h"
 
 // ********************* STATIC VARIABLES ********************** //
 Game* Game::ME = nullptr;
@@ -96,11 +97,20 @@ void Game::update() {
   SDL_PollEvent(main_event_);
   controller->get_input();
 
-  // Player update
-  player->pre_update();
-  player->update();
-  player->post_update();
-  
+  // Entities update
+  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->pre_update();
+  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
+  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
+  if (player->is_shooting) {
+    auto* bullet_ = new Bullet(player->x_pos + player->spr->get_w()/2, player->y_pos - 8);
+    player->is_shooting = false;
+  }
+
+  // Clean garbage
+  if (!Entity::GC->empty()) {
+    for (auto* e : *Entity::GC) { e->dispose(); }
+    Entity::GC->clear();
+  }
 }
 
 SDL_Renderer* Game::get_renderer() { return renderer_; }
