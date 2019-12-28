@@ -45,3 +45,4 @@ CMakeSettings.json
 # Ignore build file (Debug stage)
 /out
 /include
+/release
