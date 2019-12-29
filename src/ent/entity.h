@@ -8,6 +8,7 @@ class Entity {
   bool destroyed_;
  
  protected:
+  virtual bool has_collide_();
   int cx_;
   int cy_;
   float xr_;

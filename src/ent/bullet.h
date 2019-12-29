@@ -7,6 +7,9 @@ class Bullet : public Entity {
  private:
   const float fire_spd_ = 0.3;
 
+ protected:
+  bool has_collide_() override;
+
  public:
   Bullet(int x, int y);
   ~Bullet();

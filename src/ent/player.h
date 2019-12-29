@@ -7,10 +7,15 @@
 class Player : public Entity {
  private:
   const float flight_spd_ = 0.1;
+  template<typename Base, typename T>
+  bool is_bullet_(const T*);
 
   Timer shoot_delay_;
   void check_shoot_state_();
-   
+
+ protected:
+  bool has_collide_() override;
+
  public:
   Player(int x, int y);
   virtual ~Player();

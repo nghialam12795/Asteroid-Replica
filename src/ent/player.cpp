@@ -1,5 +1,6 @@
 #include "player.h"
 
+#include "bullet.h"
 #include "../game.h"
 #include "../constant.h"
 
@@ -16,6 +17,7 @@ Player::~Player() {
 // ************************ METHOD ***************************** //
 void Player::pre_update() {
   Entity::pre_update();
+  if (has_collide_()) { this->destroy(); }
 
   if (Game::controller->key_up) { dy -= flight_spd_; }
   if (Game::controller->key_down) { dy += flight_spd_; }
@@ -65,4 +67,22 @@ void Player::post_update() {
 
 void Player::check_shoot_state_() {
   if ((shoot_delay_.get_time()/1000.f) >= 0.5) { shoot_delay_.stop(); }
+}
+
+// TODO(nghialam): Add a game framework to support utils work like this
+template<typename Base, typename T>
+bool Player::is_bullet_(const T* ptr) {
+  return dynamic_cast<const Base*>(ptr) != nullptr;
+}
+
+bool Player::has_collide_() {
+  for (auto* e : *Entity::ALL) {
+    if (e != this && !is_bullet_<Bullet>(e))
+      if (this->x_pos < e->x_pos + e->spr->get_w() &&
+          this->x_pos + this->spr->get_w() > e->x_pos &&
+          this->y_pos < e->y_pos + e->spr->get_h() &&
+          this->y_pos + this->spr->get_h() > e->y_pos)
+        return true;
+  }
+  return false;
 }

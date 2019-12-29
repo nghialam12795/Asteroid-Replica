@@ -37,6 +37,18 @@ void Entity::destroy() {
   }
 }
 
+bool Entity::has_collide_() {
+  for (auto* e : *Entity::ALL) {
+    if (e != this)
+      if (this->x_pos < e->x_pos + e->spr->get_w() &&
+          this->x_pos + this->spr->get_w() > e->x_pos &&
+          this->y_pos < e->y_pos + e->spr->get_h() &&
+          this->y_pos + this->spr->get_h() > e->y_pos)
+        return true;
+  }
+  return false;
+}
+
 void Entity::dispose() {
   auto it = std::find(ALL->begin(), ALL->end(), this);
   ALL->erase(it);
@@ -76,5 +88,3 @@ void Entity::update() {
 void Entity::post_update() {}
 
 bool Entity::is_destroyed() { return destroyed_; }
-
-

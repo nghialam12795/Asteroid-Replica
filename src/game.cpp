@@ -1,7 +1,10 @@
 #include "game.h"
 
+#include <random>
+
 #include "constant.h"
 #include "ent/bullet.h"
+#include "ent/fighter.h"
 
 // ********************* STATIC VARIABLES ********************** //
 Game* Game::ME = nullptr;
@@ -102,8 +105,17 @@ void Game::update() {
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
   if (player->is_shooting) {
-    auto* bullet_ = new Bullet(player->x_pos + player->spr->get_w()/2, player->y_pos - 8);
+    Bullet* bullet_ = new Bullet(player->x_pos + player->spr->get_w()/2, player->y_pos - 8);
     player->is_shooting = false;
+  }
+
+  ++enemy_spawn_;
+  if (enemy_spawn_ == 200) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, kScreenHeight);
+    Fighter* fighter_ = new Fighter(kScreenWidth, dis(gen));
+    enemy_spawn_ = 0;
   }
 
   // Clean garbage
