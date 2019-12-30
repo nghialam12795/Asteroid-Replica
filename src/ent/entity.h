@@ -8,7 +8,6 @@ class Entity {
   bool destroyed_;
  
  protected:
-  virtual bool has_collide_();
   int cx_;
   int cy_;
   float xr_;
@@ -34,6 +33,8 @@ class Entity {
   void destroy();
   void dispose();
   void set_pos_utils(int x, int y);
+
+  virtual bool has_collide_();
 
   virtual void pre_update(); // for Action
   virtual void update(); // for Calculating, Logic, etc..

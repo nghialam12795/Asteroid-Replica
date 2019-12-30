@@ -45,6 +45,7 @@ void Sprite::play() {
 void Sprite::set_sprite(const std::vector<std::string> &sprites_path) {
   if (!sprites_.empty()) {
     for (auto i : sprites_) { delete(i); }
+    sprites_.clear();
   }
 
   f_start = 0;

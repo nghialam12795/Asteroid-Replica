@@ -5,6 +5,7 @@
 #include "constant.h"
 #include "ent/bullet.h"
 #include "ent/fighter.h"
+#include "ent/explosion.h"
 
 // ********************* STATIC VARIABLES ********************** //
 Game* Game::ME = nullptr;
@@ -105,7 +106,7 @@ void Game::update() {
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
   if (player->is_shooting) {
-    Bullet* bullet_ = new Bullet(player->x_pos + player->spr->get_w()/2, player->y_pos - 8);
+    new Bullet(player->x_pos + player->spr->get_w() / 2, player->y_pos - 8);
     player->is_shooting = false;
   }
 
@@ -113,10 +114,13 @@ void Game::update() {
   if (enemy_spawn_ == 200) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, kScreenHeight);
-    Fighter* fighter_ = new Fighter(kScreenWidth, dis(gen));
+    std::uniform_int_distribution<> dis(0, kScreenHeight - 50);
+    new Fighter(kScreenWidth, dis(gen));
     enemy_spawn_ = 0;
   }
+
+  // Set explosion for destroyed entity
+  if (!Entity::GC->empty()) for (auto* e : *Entity::GC) new Explosion(e->x_pos, e->y_pos);
 
   // Clean garbage
   if (!Entity::GC->empty()) {

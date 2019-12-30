@@ -1,10 +1,12 @@
 set(SOURCES
         "entity.cpp"
+        "explosion.cpp"
         "player.cpp"
         "bullet.cpp")
 
 set(HEADERS
         "entity.h"
+        "explosion.h"
         "player.h"
         "bullet.h")
 
