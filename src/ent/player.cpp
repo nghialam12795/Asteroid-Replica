@@ -9,6 +9,7 @@
 Player::Player(int x, int y) : Entity(x, y) {
   this->spr->set_scale(1, 3);
   this->is_shooting = false;
+  this->can_explode = true;
 }
 
 Player::~Player() {
@@ -59,11 +60,7 @@ void Player::update() {
 
 void Player::post_update() {
   Entity::post_update();
-
-  spr->set_pos(x_pos, y_pos);
   spr->set_scale(dir * spr->get_scale_x(), 1); // Direction
-  this->spr->play();
-  this->spr->update();
 }
 
 void Player::check_shoot_state_() {

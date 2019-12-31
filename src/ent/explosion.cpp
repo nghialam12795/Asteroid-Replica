@@ -16,16 +16,11 @@ void Explosion::pre_update() {
   dx -= float_spd_;
   if (life_time_ == 24) {
     life_time_ = 0 ;
-    this->dispose();
+    this->destroy();
   } // Just need to render 24frames
 }
 
-void Explosion::update() {
-  Entity::update();
-  spr->set_pos(x_pos, y_pos);
-  this->spr->play();
-  this->spr->update();
-}
+void Explosion::update() { Entity::update(); }
 
 void Explosion::post_update() {
   Entity::post_update();

@@ -20,6 +20,7 @@ class Entity {
   static std::vector<Entity*>* ALL;
   static std::vector<Entity*>* GC; // Garbage Collection
 
+  bool can_explode;
   Sprite* spr = nullptr;
   uint8_t dir;
 
@@ -35,6 +36,9 @@ class Entity {
   void set_pos_utils(int x, int y);
 
   virtual bool has_collide_();
+
+  template<typename Base, typename T>
+  bool is_instance_of(const T*);
 
   virtual void pre_update(); // for Action
   virtual void update(); // for Calculating, Logic, etc..

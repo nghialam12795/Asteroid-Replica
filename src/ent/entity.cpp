@@ -1,6 +1,8 @@
 #include "entity.h"
 
+#include "fighter.h"
 #include "../constant.h"
+#include "../game.h"
 
 std::vector<Entity*>* Entity::ALL = new std::vector<Entity*>;
 std::vector<Entity*>* Entity::GC = new std::vector<Entity*>;
@@ -13,6 +15,7 @@ Entity::Entity(int x, int y) {
   dir = 1;
   spr = new Sprite();
   set_pos_utils(x, y);
+  can_explode = false;
   Entity::ALL->push_back(this);
 }
 
@@ -52,6 +55,10 @@ bool Entity::has_collide_() {
 void Entity::dispose() {
   auto it = std::find(ALL->begin(), ALL->end(), this);
   ALL->erase(it);
+  if (is_instance_of<Fighter>(this)) {
+    auto it = std::find(Game::enemy->begin(), Game::enemy->end(), this);
+    Game::enemy->erase(it);
+  }
   cx_ = 0;
   cy_ = 0;
   xr_ = 0;
@@ -85,6 +92,16 @@ void Entity::update() {
   dy *= kFrict;
 }
 
-void Entity::post_update() {}
+void Entity::post_update() {
+  // Set position
+  this->spr->set_pos(x_pos, y_pos);
+  this->spr->play();
+  this->spr->update();
+}
+
+template<typename Base, typename T>
+bool Entity::is_instance_of(const T *ptr) {
+  return dynamic_cast<const Base*>(ptr) != nullptr;
+}
 
 bool Entity::is_destroyed() { return destroyed_; }

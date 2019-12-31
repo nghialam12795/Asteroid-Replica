@@ -13,7 +13,12 @@ class Fighter : public Entity {
  public:
   Fighter(int x, int y);
   ~Fighter();
-  
+
+  template<typename Base, typename T> // Currently duplicate with player
+  bool is_instance_of(const T*); // TODO(nghialam): Create a framework to solve this
+
+  bool has_collide_() override;
+  bool is_shooting;
   void pre_update() override;
   void update() override;
   void post_update() override;

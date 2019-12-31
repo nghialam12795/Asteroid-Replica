@@ -8,6 +8,7 @@
 #include "timer.h"
 #include "ui/text.h"
 #include "ent/player.h"
+#include "ent/fighter.h"
 #include "controller.h"
 
 class Game {
@@ -20,6 +21,7 @@ class Game {
 
   // Might be removed
   int enemy_spawn_  = 0;  // need to use it cause timer is broken with SDL_Delay
+  int obstcl_spawn_ = 0;  // need to use it cause timer is broken with SDL_Delay
                           // TODO(nghialam): Spawner class to solve this issue
   Text* fps_counter_ = nullptr;
   std::stringstream time_text;
@@ -31,6 +33,7 @@ class Game {
   static Game* ME;
   static bool quit_game;
   static Player* player;
+  static std::vector<Fighter*>* enemy;
   static Controller* controller;
 
   void loop();

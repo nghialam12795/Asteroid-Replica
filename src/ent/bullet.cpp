@@ -1,5 +1,6 @@
 #include "bullet.h"
 
+#include "bomb.h"
 #include "explosion.h"
 #include "../game.h"
 #include "../assets.h"
@@ -17,27 +18,18 @@ Bullet::~Bullet() { this->destroy(); }
 
 void Bullet::pre_update() {
   Entity::pre_update();
-  if (has_collide_()) { this -> dispose(); }
+  if (has_collide_()) { this -> destroy(); }
 
   x_pos = (cx_+xr_)*kGrid;
-  if (x_pos >= (kScreenWidth + 20)) { this->dispose(); }
+  if (x_pos >= (kScreenWidth + 20)) { this->destroy(); }
   y_pos = (cy_+yr_)*kGrid;
 
   dx += fire_spd_;
 }
 
-void Bullet::update() {
-  Entity::update();
-  
-  // Set position
-  spr->set_pos(x_pos, y_pos);
-  this->spr->play();
-  this->spr->update();
-}
+void Bullet::update() { Entity::update(); }
 
-void Bullet::post_update() {
-  Entity::post_update();
-}
+void Bullet::post_update() { Entity::post_update(); }
 
 template<typename Base, typename T>
 bool Bullet::is_instance_of(const T *ptr) {
@@ -46,7 +38,7 @@ bool Bullet::is_instance_of(const T *ptr) {
 
 bool Bullet::has_collide_() {
   for (auto* e : *Entity::ALL) {
-    if (e != this && e!=Game::player && !this->is_instance_of<Explosion>(e))
+    if (e != this && e!=Game::player && !is_instance_of<Explosion>(e) && !is_instance_of<Bomb>(e))
       if (this->x_pos < e->x_pos + e->spr->get_w() &&
           this->x_pos + this->spr->get_w() > e->x_pos &&
           this->y_pos < e->y_pos + e->spr->get_h() &&

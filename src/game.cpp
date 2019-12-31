@@ -4,7 +4,8 @@
 
 #include "constant.h"
 #include "ent/bullet.h"
-#include "ent/fighter.h"
+#include "ent/bomb.h"
+#include "ent/obstacle.h"
 #include "ent/explosion.h"
 
 // ********************* STATIC VARIABLES ********************** //
@@ -12,6 +13,7 @@ Game* Game::ME = nullptr;
 bool Game::quit_game = false;
 Player* Game::player = new Player(0, 0);
 Controller* Game::controller = new Controller;
+std::vector<Fighter*>* Game::enemy = new std::vector<Fighter*>;
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Game::Game() {
@@ -101,7 +103,9 @@ void Game::update() {
   SDL_PollEvent(main_event_);
   controller->get_input();
 
+  // -------------------------------------------------------------------
   // Entities update
+  // -------------------------------------------------------------------
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->pre_update();
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
@@ -110,17 +114,58 @@ void Game::update() {
     player->is_shooting = false;
   }
 
+  // Enemies
   ++enemy_spawn_;
   if (enemy_spawn_ == 200) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, kScreenHeight - 50);
-    new Fighter(kScreenWidth, dis(gen));
+    Game::enemy->push_back(new Fighter(kScreenWidth, dis(gen)));
     enemy_spawn_ = 0;
+  }
+  if (!Game::enemy->empty()) {
+    for (auto* e : *Game::enemy) {
+      if (e->is_shooting) {
+        new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::LEFT);
+        new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::UP);
+        new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::DOWN);
+        e->is_shooting = false;
+      }
+    }
+  }
+
+  // Obstacles
+  ++obstcl_spawn_;
+  if (obstcl_spawn_ == 255) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, kScreenHeight - 50);
+    int y_pos_ = dis(gen);
+    auto* new_ob = new Obstacle(kScreenWidth, y_pos_);
+    if (y_pos_ + new_ob->spr->get_h()*2 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*2);
+    } else {
+      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*2);
+    }
+    if (y_pos_ + new_ob->spr->get_h()*4 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*4);
+    } else {
+      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*4);
+    }
+    if (y_pos_ + new_ob->spr->get_h()*8 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*8);
+    } else {
+      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*8);
+    }
+
+    obstcl_spawn_ = 0;
   }
 
   // Set explosion for destroyed entity
-  if (!Entity::GC->empty()) for (auto* e : *Entity::GC) new Explosion(e->x_pos, e->y_pos);
+  if (!Entity::GC->empty())
+    for (auto* e : *Entity::GC)
+      if (e->can_explode)
+        new Explosion(e->x_pos, e->y_pos);
 
   // Clean garbage
   if (!Entity::GC->empty()) {
