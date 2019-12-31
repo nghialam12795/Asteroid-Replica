@@ -5,7 +5,7 @@
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Explosion::Explosion(int x, int y) : Entity(x, y) {
   this->spr->set_sprite(*Assets::get_anim("explosion"));
-  this->spr->set_scale(1, 1);
+  this->spr->set_scale(2, 2);
 }
 
 Explosion::~Explosion() = default;

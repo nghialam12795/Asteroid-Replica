@@ -6,7 +6,7 @@
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Fighter::Fighter(int x, int y) : Entity(x, y) {
   this->spr->set_sprite(*Assets::get_anim("fighter_idle"));
-  this->spr->set_scale(2, 2);
+  this->spr->set_scale(1, 1);
 }
 
 Fighter::~Fighter() {
