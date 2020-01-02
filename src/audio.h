@@ -1,9 +1,9 @@
 #ifndef ASTEROID_AUDIO_H_
 #define ASTEROID_AUDIO_H_
 
-#include <SDL_mixer.h>
 #include <vector>
 #include <string>
+#include <SDL_mixer.h>
 
 enum class MUSIC {
   MAIN_THEME,

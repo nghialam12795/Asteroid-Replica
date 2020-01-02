@@ -21,9 +21,9 @@ if (NOT ASTEROID_SETTINGS)
             "${ASTEROID_PATH}/build/cmake/"
             "${ASTEROID_PATH}/build/cmake/extern_lib"
             "${ASTEROID_PATH}/include/SDL2"
+            "${ASTEROID_PATH}/include/SDL2_mixer"
             "${ASTEROID_PATH}/include/SDL2_image"
             "${ASTEROID_PATH}/include/SDL2_ttf"
-            "${ASTEROID_PATH}/include/SDL2_mixer"
             )
     include(asteroid_settings)
 endif()
@@ -57,8 +57,8 @@ else()
     find_package(SDL2_mixer REQUIRED)
 endif()
 
-include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIRS})
-target_link_libraries(ASTEROID ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2TTF_LIBRARY} ${SDL2_MIXER_LIBRARIES})
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
+target_link_libraries(ASTEROID ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2TTF_LIBRARY} ${SDL2_MIXER_LIBRARY})
 
 ##################### Internal ######################
 target_link_libraries(ASTEROID ${GAME_ENTITIES} ${GAME_UI})
