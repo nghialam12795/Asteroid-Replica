@@ -5,6 +5,7 @@
 
 class Obstacle : public Entity{
  private:
+  int anim_delay_ = 8;
   const float fly_spd_ = 0.02;
 
  public:

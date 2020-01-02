@@ -12,6 +12,7 @@ Texture* Assets::background_ = nullptr;
 TTF_Font* Assets::font_ = nullptr;
 
 map< string, vector<string>* >* Assets::anim_db_ = new map< string, vector<string>* >;
+map< string, string >* Assets::audio_db_ = new map< string, string >;
 
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Assets::Assets() {
@@ -59,6 +60,12 @@ Assets::Assets() {
     anim_db_->insert({"explosion", ap_explo_});
     anim_db_->insert({"obstacle_idle", ap_obstacle_});
     anim_db_->insert({"bomb_coming", ap_bomb_});
+
+    // -------------------------------------------------------
+    // AUDIO
+    // -------------------------------------------------------
+    audio_db_->insert({"overworld", res_path_ + "audio/overworld.wav"});
+    audio_db_->insert({"fireball", res_path_ + "audio/fireball.wav"});
   }
 
   is_init_ = true;
@@ -78,4 +85,8 @@ TTF_Font* Assets::get_font() { return font_; }
 
 vector<string>* Assets::get_anim(const string& anim_name) {
   return anim_db_->find(anim_name)->second;
+}
+
+std::string Assets::get_audio(const std::string &audio_name) {
+  return audio_db_->find(audio_name)->second;
 }

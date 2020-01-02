@@ -29,5 +29,13 @@ void Obstacle::update() {
 }
 
 void Obstacle::post_update() {
-  Entity::post_update();
+  // Set position
+  this->spr->set_pos(x_pos, y_pos);
+  this->spr->play();
+  if (this->anim_delay_ == 0) {
+    this->spr->update();
+    this->anim_delay_ = 8;
+  }
+
+  --this->anim_delay_;
 }
