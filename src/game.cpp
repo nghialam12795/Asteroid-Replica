@@ -109,9 +109,9 @@ void Game::update() {
   // -------------------------------------------------------------------
   // Entities update
   // -------------------------------------------------------------------
-  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->pre_update();
-  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
-  for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
+  for (auto e : *Entity::ALL) if (!e->is_destroyed()) e->pre_update();
+  for (auto e : *Entity::ALL) if (!e->is_destroyed()) e->update();
+  for (auto e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
   if (player->is_shooting) {
     game_audio_->play_chunk(CHUNK::BULLET_FIRE);
     new Bullet(player->x_pos + player->spr->get_w() / 2, player->y_pos - 8);
@@ -128,7 +128,7 @@ void Game::update() {
     enemy_spawn_ = 0;
   }
   if (!Game::enemy->empty()) {
-    for (auto* e : *Game::enemy) {
+    for (auto e : *Game::enemy) {
       if (e->is_shooting) {
         game_audio_->play_chunk(CHUNK::BOMB);
         new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::LEFT);
@@ -146,21 +146,21 @@ void Game::update() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, kScreenHeight - 50);
     int y_pos_ = dis(gen);
-    auto* new_ob = new Obstacle(kScreenWidth, y_pos_);
-    if (y_pos_ + new_ob->spr->get_h()*2 < kScreenHeight) {
-      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*2);
+    Obstacle new_ob(kScreenWidth, y_pos_);
+    if (y_pos_ + new_ob.spr->get_h()*2 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob.spr->get_h()*2);
     } else {
-      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*2);
+      new Obstacle(kScreenWidth, y_pos_ - new_ob.spr->get_h()*2);
     }
-    if (y_pos_ + new_ob->spr->get_h()*4 < kScreenHeight) {
-      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*4);
+    if (y_pos_ + new_ob.spr->get_h()*4 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob.spr->get_h()*4);
     } else {
-      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*4);
+      new Obstacle(kScreenWidth, y_pos_ - new_ob.spr->get_h()*4);
     }
-    if (y_pos_ + new_ob->spr->get_h()*8 < kScreenHeight) {
-      new Obstacle(kScreenWidth, y_pos_ + new_ob->spr->get_h()*8);
+    if (y_pos_ + new_ob.spr->get_h()*8 < kScreenHeight) {
+      new Obstacle(kScreenWidth, y_pos_ + new_ob.spr->get_h()*8);
     } else {
-      new Obstacle(kScreenWidth, y_pos_ - new_ob->spr->get_h()*8);
+      new Obstacle(kScreenWidth, y_pos_ - new_ob.spr->get_h()*8);
     }
 
     obstcl_spawn_ = 0;
@@ -168,7 +168,7 @@ void Game::update() {
 
   // Set explosion for destroyed entity
   if (!Entity::GC->empty())
-    for (auto* e : *Entity::GC)
+    for (auto e : *Entity::GC)
       if (e->can_explode) {
         game_audio_->play_chunk(CHUNK::EXPLOSION);
         new Explosion(e->x_pos, e->y_pos);
@@ -176,7 +176,11 @@ void Game::update() {
 
   // Clean garbage
   if (!Entity::GC->empty()) {
-    for (auto* e : *Entity::GC) { e->dispose(); }
+    for (auto e : *Entity::GC) {
+      e->dispose();
+//      delete(e);
+//      e = nullptr;
+    }
     Entity::GC->clear();
   }
 }
