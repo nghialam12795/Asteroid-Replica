@@ -25,8 +25,8 @@ class Game {
   int enemy_spawn_  = 0;  // need to use it cause timer is broken with SDL_Delay
   int obstcl_spawn_ = 0;  // need to use it cause timer is broken with SDL_Delay
                           // TODO(nghialam): Spawner class to solve this issue
-  Text* fps_counter_ = nullptr;
-  std::stringstream time_text;
+  Text* info_ = nullptr;
+  std::stringstream i_content_;
   
  public:
   Game();

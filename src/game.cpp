@@ -45,8 +45,8 @@ Game::Game() {
 
   // Init time counter
   timer_.start();
-  fps_counter_ = new Text("Game Start", 1, {255, 255, 255, 255});
-  fps_counter_->render(kScreenWidth/2, 0);
+  info_ = new Text("Game Start", 1, {255, 255, 255, 255});
+  info_->render(kScreenWidth/2, 0);
 
   // Init Entities
   player->spr->set_sprite(*Assets::get_anim("player_idle"));
@@ -91,9 +91,9 @@ void Game::render(int &scroll_offset, int &frames, Timer &cap_timer) {
   float avg_fps = frames / (timer_.get_time() / 1000.f);
   if (avg_fps > 2000000) { avg_fps = 0; }
 
-  time_text.str( "" );
-  time_text << "FPS: " << avg_fps;
-  fps_counter_->render(kScreenWidth - fps_counter_->get_w(), 0, time_text.str());
+  i_content_.str("" );
+  i_content_ << "FPS: " << avg_fps;
+  info_->render(kScreenWidth - info_->get_w(), 0, i_content_.str());
 
   ++frames;
 
