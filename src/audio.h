@@ -6,8 +6,7 @@
 #include <string>
 
 enum class MUSIC {
-  MAIN_MENU,
-  IN_GAME,
+  MAIN_THEME,
   NOTHING,
 };
 

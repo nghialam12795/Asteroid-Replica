@@ -37,6 +37,7 @@ Game::Game() {
 
   // Init Assets
   game_assets_ = new Assets();
+  game_audio_ = new Audio();
 
   // Set window icon
   SDL_SetWindowIcon(window_, Assets::get_logo());
@@ -68,6 +69,8 @@ void Game::loop() {
   Timer cap_timer; // For capping FPS
   int scroll_offset = 0;
   int frames = 0;
+
+  game_audio_->play_mucic(MUSIC::MAIN_THEME);
   while (!Game::quit_game && main_event_->type != SDL_QUIT) {
     cap_timer.start();
     SDL_RenderClear(renderer_);
@@ -110,6 +113,7 @@ void Game::update() {
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->update();
   for (auto* e : *Entity::ALL) if (!e->is_destroyed()) e->post_update();
   if (player->is_shooting) {
+    game_audio_->play_chunk(CHUNK::BULLET_FIRE);
     new Bullet(player->x_pos + player->spr->get_w() / 2, player->y_pos - 8);
     player->is_shooting = false;
   }
@@ -126,6 +130,7 @@ void Game::update() {
   if (!Game::enemy->empty()) {
     for (auto* e : *Game::enemy) {
       if (e->is_shooting) {
+        game_audio_->play_chunk(CHUNK::BOMB);
         new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::LEFT);
         new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::UP);
         new Bomb(e->x_pos, e->y_pos+8, BOMB_DIR::DOWN);
@@ -164,8 +169,10 @@ void Game::update() {
   // Set explosion for destroyed entity
   if (!Entity::GC->empty())
     for (auto* e : *Entity::GC)
-      if (e->can_explode)
+      if (e->can_explode) {
+        game_audio_->play_chunk(CHUNK::EXPLOSION);
         new Explosion(e->x_pos, e->y_pos);
+      }
 
   // Clean garbage
   if (!Entity::GC->empty()) {

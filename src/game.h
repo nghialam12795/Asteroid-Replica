@@ -5,6 +5,7 @@
 
 #include "header.h"
 #include "assets.h"
+#include "audio.h"
 #include "timer.h"
 #include "ui/text.h"
 #include "ent/player.h"
@@ -17,6 +18,7 @@ class Game {
   SDL_Renderer* renderer_ = nullptr;
   SDL_Event* main_event_ = nullptr;
   Assets* game_assets_ = nullptr;
+  Audio* game_audio_ = nullptr;
   Timer timer_;
 
   // Might be removed

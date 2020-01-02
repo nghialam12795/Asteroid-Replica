@@ -64,8 +64,10 @@ Assets::Assets() {
     // -------------------------------------------------------
     // AUDIO
     // -------------------------------------------------------
-    audio_db_->insert({"overworld", res_path_ + "audio/overworld.wav"});
-    audio_db_->insert({"fireball", res_path_ + "audio/fireball.wav"});
+    audio_db_->insert({"maintheme", res_path_ + "audio/maintheme.wav"});
+    audio_db_->insert({"bulletfire", res_path_ + "audio/bulletfire.wav"});
+    audio_db_->insert({"bomb", res_path_ + "audio/bomb.wav"});
+    audio_db_->insert({"explosion", res_path_ + "audio/explosion.wav"});
   }
 
   is_init_ = true;

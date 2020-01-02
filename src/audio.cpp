@@ -2,15 +2,20 @@
 
 #include "assets.h"
 
+std::vector<Mix_Music*> Audio::game_music_;
+std::vector<Mix_Chunk*> Audio::game_chunk_;
+MUSIC Audio::cur_music_ = MUSIC::NOTHING;
+int Audio::volume_ = 0;
+
 // *************** CONSTRUCTOR & DESTRUCTOR ******************** //
 Audio::Audio() {
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
-  game_music_.push_back(load_music("overworld"));
+  game_music_.push_back(load_music("maintheme"));
+  game_chunk_.push_back(load_chunk("bulletfire"));
+  game_chunk_.push_back(load_chunk("bomb"));
+  game_chunk_.push_back(load_chunk("explosion"));
 
-  game_chunk_.push_back(load_chunk("fireball"));
-
-  Audio::cur_music_ = MUSIC::NOTHING;
   set_volume(100);
 }
 

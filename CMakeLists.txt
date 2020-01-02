@@ -22,7 +22,8 @@ if (NOT ASTEROID_SETTINGS)
             "${ASTEROID_PATH}/build/cmake/extern_lib"
             "${ASTEROID_PATH}/include/SDL2"
             "${ASTEROID_PATH}/include/SDL2_image"
-            "${ASTEROID_PATH}/include/SDL2_ttf" # TODO(nghialam): Add include SDL2_mixer for Windows
+            "${ASTEROID_PATH}/include/SDL2_ttf"
+            "${ASTEROID_PATH}/include/SDL2_mixer"
             )
     include(asteroid_settings)
 endif()
@@ -31,7 +32,11 @@ endif()
 add_subdirectory(src/ent)
 add_subdirectory(src/ui)
 file(GLOB_RECURSE ASTEROID_SOURCE "${PROJECT_SOURCE_DIR}/src/*.cpp") # Include all sources
-add_executable(ASTEROID ${ASTEROID_SOURCE})
+if(WIN32)
+    add_executable(ASTEROID WIN32 ${ASTEROID_SOURCE})
+else()
+    add_executable(ASTEROID ${ASTEROID_SOURCE})
+endif()
 
 # --------------------------------------------------
 # For library using in this project
@@ -44,6 +49,7 @@ if (WIN32)
     include(sdl2_config) # For fixing weird bug of not found the SDL2 library on Window
     include(sdl2_image_config)
     include(sdl2_ttf_config)
+    include(sdl2_mixer_config)
 else()
     find_package(SDL2 REQUIRED)
     find_package(SDL2_image REQUIRED)
