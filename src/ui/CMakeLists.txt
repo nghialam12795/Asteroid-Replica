@@ -8,7 +8,7 @@ set(HEADERS
       "text.h"
       )
 
-add_library(GAME_UI STATIC ${SOURCES} ${HEADERS})
+add_library(GAME_UI SHARED STATIC ${SOURCES} ${HEADERS})
 
 # Need more setting for VSC to regconize this from parent CMAKE
 link_directories(${CMAKE_MODULE_PATH})

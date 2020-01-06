@@ -14,7 +14,7 @@ set(HEADERS
         "player.h"
         "bullet.h")
 
-add_library(GAME_ENTITIES STATIC ${SOURCES} ${HEADERS})
+add_library(GAME_ENTITIES SHARED STATIC ${SOURCES} ${HEADERS})
 
 # Need more setting for VSC to recognize this from parent CMAKE
 link_directories(${CMAKE_MODULE_PATH})

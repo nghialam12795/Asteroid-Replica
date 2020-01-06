@@ -34,8 +34,8 @@ add_subdirectory(src/ui)
 file(GLOB_RECURSE ASTEROID_SOURCE "${PROJECT_SOURCE_DIR}/src/*.cpp") # Include all sources
 if(WIN32)
     add_executable(ASTEROID WIN32 ${ASTEROID_SOURCE})
-else()
-    add_executable(ASTEROID ${ASTEROID_SOURCE})
+elseif(APPLE)
+    add_executable(ASTEROID MACOSX_BUNDLE ${ASTEROID_SOURCE})
 endif()
 
 # --------------------------------------------------
